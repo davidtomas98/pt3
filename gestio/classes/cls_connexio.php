@@ -1,50 +1,47 @@
 <?php
 class connexio{
-    //Atributs
     var $host;
     var $db;
     var $user;
     var $passwd;
     var $conn;
-  
-    //Constructor
+            
     function connexio ($ruta="../../"){
         $this->host="localhost";
         $this->db="pt3";
-        $this->user="david2";
+        $this->user="peter";
         $this->passwd="root";
-           
     }
     
     function DB_Open(){
-        $this->conn = mysqli_connect($this->host, $this->user, $this->passwd);
+        $this->conn =  mysqli_connect($this->host, $this->user, $this->passwd);
         if ($this->conn){
             if (! mysqli_select_db($this->conn, $this->db)){
                 $status = mysqli_error();
             }
             else{
                 $status=0;
-            }    
+            }
         } else {
-            $status = mysqli_error();  
+            $status = mysqli_error();
         }
         return ($status);
     }
     
     function DB_Close(){
-        if (mysqli_close($this->conn)){
-            $status =1;
-        } else {
-            $status =0;
-        }
-        return ($status); 
+       if (mysqli_close($this->conn)) {
+           $status=1;
+       } else {
+           $status=0;
+       }
+       return ($status);
     }
     
     function DB_Select($strSelect){
         $this->DB_Open();
-        $resultat = mysqli_query($this->conn,$strSelect);
-        if($resultat){
-            if(mysqli_num_rows($result) > 0){
+        $result = mysqli_query($this->conn,$strSelect);
+        if($result){
+            if (mysqli_num_rows($result) > 0){
                 return ($result);
             } else {
                 return (0);
@@ -52,18 +49,18 @@ class connexio{
         } else {
             $result = mysqli_error();
         }
-        $this->DB_Close();
+        $this->DB_Close();   
     }
     
     function DB_Execute($strSelect){
         $this->DB_Open();
-        $resultat = mysqli_query($this->conn,$strSelect);
-        $this->DB_Close();  
+        $result = mysqli_query($this->conn,$strSelect);
+        $this->DB_Close();     
     }
     
     function DB_Fetch($resultat){
         if ($resultat){
-            if(mysqli_num_rows($result) > 0){
+            if (mysqli_num_rows($resultat) > 0){
                 return (mysqli_fetch_array($resultat));
             } else {
                 return false;
@@ -72,7 +69,8 @@ class connexio{
             return false;
         }
     }
+    
+    
 }
-
 ?>
 
